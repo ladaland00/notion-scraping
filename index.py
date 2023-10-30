@@ -101,11 +101,7 @@ try:
             except NoSuchElementException:
                 website = None   
             try:
-                website = tableData.find_element( By.XPATH,"./div/div/div[10]")
-            except NoSuchElementException:
-                website = None  
-            try:
-                sponsorshipSite = tableData.find_element( By.XPATH,"./div/div/div[11]")
+                sponsorshipSite = tableData.find_element( By.XPATH,"./div/div/div[10]")
             except NoSuchElementException:
                 sponsorshipSite = None 
             try:
