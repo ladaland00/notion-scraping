@@ -105,7 +105,7 @@ try:
             except NoSuchElementException:
                 sponsorshipSite = None 
             try:
-                sponsorDownload = tableData.find_element( By.XPATH,"./div/div/div[12]")
+                sponsorDownload = tableData.find_element( By.XPATH,"./div/div/div[11]")
             except NoSuchElementException:
                 sponsorDownload = None 
             try:
