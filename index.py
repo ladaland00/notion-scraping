@@ -8,8 +8,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import StaleElementReferenceException
+import urllib
 
-import urllib.parse as urlparse
+import pandas as pd
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # proxy
@@ -207,13 +208,28 @@ try:
             print("Not found eventName")
 except NoSuchElementException:
     print("Not found table all data")
+# Save image
+# get the image source
+try:
+    img = driver.find_element(By.XPATH,'//*[@id="notion-app"]/div/div[1]/div/div[1]/main/div/div[2]/div[1]/div/div[1]/div/div/img')
+    src = img.get_attribute('src')
+
+    # download the image
+    urllib.request.urlretrieve(src, "Main.png")    
+except NoSuchElementException:
+    print("Not found img data")
+
+
+
 # Save the scraped data to a file
 outputFileName = "scrapedData.json"
 print("cardData", cardData)
 with open(outputFileName, "w") as file:
     json.dump({"data": cardData}, file)
-
-print("Data saved to", outputFileName)
+# Save the scraped data to a csv
+df = pd.DataFrame(cardData)
+df.to_csv('scrapedData.csv', index=False)
+print("Data saved to", cardData)
 
 # Release the resources allocated by Selenium and shut down the browser
 print("Close browser")
